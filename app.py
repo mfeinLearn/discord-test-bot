@@ -1,12 +1,11 @@
-from nextcord.ext import commands # type: ignore
+import nextcord
+from nextcord.ext import commands 
 
-bot = commands.Bot(command_prefix="!")
+# Enable intents
+intents = nextcord.Intents.default()
+intents.message_content = True  # Enable Message Content Intent
 
-# !hi
-# Hello!
-
-# name of our command
-# async function because we want function to execute asynchronously 
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.command(name="hi")
 async def SendMessage(ctx):
