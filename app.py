@@ -9,11 +9,16 @@ intents.message_content = True  # Enable Message Content Intent
 logger = logging.getLogger('discord')
 logging.basicConfig(level= logging.NOTSET)
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(
+    command_prefix="_",
+    help_command=None,  # This disables the default help command
+    member_cache_flags=nextcord.MemberCacheFlags.none(),  # No member data is cached
+    intents=intents
+)
 
-@bot.command(name="hi")
+@bot.command(name="testing")
 async def SendMessage(ctx):
-    await ctx.send('Hello!')
+    await ctx.send('Working test!')
 
 
 @bot.event
