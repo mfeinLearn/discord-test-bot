@@ -1,9 +1,13 @@
 import nextcord
 from nextcord.ext import commands 
+import logging
 
 # Enable intents
 intents = nextcord.Intents.default()
 intents.message_content = True  # Enable Message Content Intent
+
+logger = logging.getLogger('discord')
+logging.basicConfig(level= logging.NOTSET)
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -14,7 +18,9 @@ async def SendMessage(ctx):
 
 @bot.event
 async def on_ready():
-    print(f"Logged in as: {bot.user.name}")
+    logging.info(f"Logged in as: {bot.user.name}")
+    logging.info(f"{bot.user}, is ready!")
+    logging.info(f"{bot.guilds} bot's guilds!")
 
 
 @bot.event
@@ -22,9 +28,9 @@ async def on_voice_state_update(member, before, after):
     if member.bot:
         return
     if not before.channel:
-        print(f'{member.name} joined {after.channel.name}')
+        logging.info(f'{member.name} joined {after.channel.name}')
     if before.channel and not after.channel:
-        print("User left channel")
+        logging.info("User left channel")
 
 
 if __name__ == '__main__':
